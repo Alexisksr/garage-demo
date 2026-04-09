@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep -E \"^\\\\s+\\(@media|\\\\..*\\\\{\\)\" \"/Users/alexisk/Desktop/websites/garage auto essaie/démonstration:Garage.html\")"
+      "Bash(grep -E \"^\\\\s+\\(@media|\\\\..*\\\\{\\)\" \"/Users/alexisk/Desktop/websites/garage auto essaie/démonstration:Garage.html\")",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(git revert:*)"
     ]
   }
 }
