@@ -410,9 +410,12 @@
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1rem; }
-    .nav-links a { font-size: 0.7rem; }
+    nav { padding: 0.8rem 1rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem; }
+    .nav-logo { font-size: 1.2rem; flex: 0 0 auto; }
+    .nav-links { width: 100%; gap: 0.6rem; justify-content: center; padding: 0.5rem 0 0; border-top: 1px solid var(--border); margin-top: 0.5rem; }
+    .nav-links a { font-size: 0.65rem; letter-spacing: 0.08em; }
+    .nav-indicator { height: 2px; }
+    .nav-cta { font-size: 0.65rem; padding: 0.4rem 0.8rem; order: -1; }
     section { padding: 5rem 1.5rem; }
     .hero { padding: 5rem 1.5rem 4rem; }
     .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
