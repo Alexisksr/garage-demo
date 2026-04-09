@@ -5,7 +5,10 @@
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
-      "Bash(git revert:*)"
+      "Bash(git revert:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(git rm:*)"
     ]
   }
 }
