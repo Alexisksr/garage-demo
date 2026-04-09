@@ -47,12 +47,21 @@
   }
   .nav-logo span { color: var(--red); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links { position: relative; }
   .nav-links a {
     font-size: 0.85rem; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--muted);
     text-decoration: none; transition: color 0.25s;
+    position: relative;
   }
   .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+  .nav-indicator {
+    position: absolute; bottom: -6px; left: 0;
+    height: 2px; background: var(--red);
+    transition: left 0.35s cubic-bezier(0.4,0,0.2,1), width 0.35s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+  }
   .nav-cta {
     background: var(--red); color: #fff;
     padding: 0.55rem 1.4rem; font-size: 0.82rem;
@@ -430,6 +439,7 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#contact">Contact</a></li>
+    <div class="nav-indicator"></div>
   </ul>
   <a href="#contact" class="nav-cta">Prendre RDV</a>
 </nav>
@@ -766,6 +776,42 @@
 </footer>
 
 <script>
+// Nav active indicator
+const navLinks = document.querySelectorAll('.nav-links a');
+const indicator = document.querySelector('.nav-indicator');
+const sections = ['services','about','contact'].map(id => document.getElementById(id));
+
+function moveIndicator(link) {
+  if (!link || !indicator) return;
+  const navRect = document.querySelector('.nav-links').getBoundingClientRect();
+  const linkRect = link.getBoundingClientRect();
+  indicator.style.left = (linkRect.left - navRect.left) + 'px';
+  indicator.style.width = linkRect.width + 'px';
+  indicator.style.opacity = '1';
+}
+
+function setActive(id) {
+  navLinks.forEach(a => a.classList.remove('active'));
+  const active = document.querySelector(`.nav-links a[href="#${id}"]`);
+  if (active) { active.classList.add('active'); moveIndicator(active); }
+  else { if (indicator) indicator.style.opacity = '0'; }
+}
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+}, { threshold: 0.3 });
+sections.forEach(s => { if (s) sectionObserver.observe(s); });
+
+navLinks.forEach(a => a.addEventListener('click', () => {
+  const id = a.getAttribute('href').slice(1);
+  setActive(id);
+}));
+
+window.addEventListener('scroll', () => {
+  const active = document.querySelector('.nav-links a.active');
+  if (active) moveIndicator(active);
+}, { passive: true });
+
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
