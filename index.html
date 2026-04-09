@@ -412,10 +412,16 @@
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    nav { padding: 1rem 1.2rem; }
-    .nav-links { gap: 1.2rem; }
-    .nav-links a { font-size: 0.72rem; letter-spacing: 0.08em; }
-    .nav-cta { display: none; }
+    nav { padding: 0.7rem 1.2rem; flex-wrap: wrap; gap: 0; }
+    .nav-logo { flex: 1; font-size: 1.3rem; }
+    .nav-cta { font-size: 0.72rem; padding: 0.4rem 0.9rem; letter-spacing: 0.06em; }
+    .nav-links {
+      order: 3; width: 100%; justify-content: center;
+      gap: 1.6rem; padding: 0.55rem 0 0.65rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.06em; }
+    .nav-indicator { bottom: 2px; }
     section { padding: 5rem 1.5rem; }
     .hero { padding: 5rem 1.5rem 4rem; }
     .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
@@ -801,7 +807,7 @@ function setActive(id) {
 
 const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
-}, { threshold: 0.3 });
+}, { threshold: 0.15 });
 sections.forEach(s => { if (s) sectionObserver.observe(s); });
 
 navLinks.forEach(a => a.addEventListener('click', () => setActive(a.getAttribute('href').slice(1))));
