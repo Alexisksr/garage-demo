@@ -46,13 +46,20 @@
     color: var(--text);
   }
   .nav-logo span { color: var(--red); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; position: relative; }
   .nav-links a {
     font-size: 0.85rem; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--muted);
-    text-decoration: none; transition: color 0.25s;
+    text-decoration: none; transition: color 0.25s; position: relative;
   }
   .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+  .nav-indicator {
+    position: absolute; bottom: -5px; left: 0;
+    width: 0; height: 2px; background: var(--red);
+    transition: left 0.3s ease, width 0.3s ease;
+    pointer-events: none;
+  }
   .nav-cta {
     background: var(--red); color: #fff;
     padding: 0.55rem 1.4rem; font-size: 0.82rem;
@@ -404,7 +411,8 @@
   /* RESPONSIVE */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.7rem; }
     section { padding: 5rem 1.5rem; }
     .hero { padding: 5rem 1.5rem 4rem; }
     .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
@@ -430,6 +438,8 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact">Prendre RDV</a></li>
+    <div class="nav-indicator"></div>
   </ul>
   <a href="#contact" class="nav-cta">Prendre RDV</a>
 </nav>
@@ -786,6 +796,49 @@ document.querySelector('.form-submit').addEventListener('click', function() {
     this.style.background = '';
   }, 3000);
 });
+
+// Nav indicator tracking
+const navLinks = document.querySelectorAll('.nav-links a');
+const navIndicator = document.querySelector('.nav-indicator');
+const sections = {
+  '#services': document.querySelector('#services'),
+  '#about': document.querySelector('#about'),
+  '#contact': document.querySelector('#contact')
+};
+
+function updateNavIndicator() {
+  let activeLink = null;
+  
+  // Déterminer quelle section est visible
+  for (let [hash, section] of Object.entries(sections)) {
+    if (section) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+        activeLink = document.querySelector(`.nav-links a[href="${hash}"]`);
+        break;
+      }
+    }
+  }
+  
+  if (activeLink) {
+    // Remplacer la classe active sur tous les liens
+    navLinks.forEach(link => link.classList.remove('active'));
+    activeLink.classList.add('active');
+    
+    // Positionner le curseur rouge sous le lien actif
+    const rect = activeLink.getBoundingClientRect();
+    const navRect = document.querySelector('nav').getBoundingClientRect();
+    const leftOffset = rect.left - navRect.left;
+    
+    navIndicator.style.left = leftOffset + 'px';
+    navIndicator.style.width = rect.width + 'px';
+  }
+}
+
+// Mettre à jour au scroll et au resize
+window.addEventListener('scroll', updateNavIndicator);
+window.addEventListener('resize', updateNavIndicator);
+document.addEventListener('DOMContentLoaded', updateNavIndicator);
 </script>
 </body>
 </html>
