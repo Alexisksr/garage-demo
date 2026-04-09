@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garage Auto-Ban | Fribourg</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --red: #D92B2B; --red-dark: #A81F1F;
+    --bg: #0C0C0C; --bg2: #141414; --bg3: #1A1A1A;
+    --text: #F2EDE6; --muted: #888880; --border: rgba(255,255,255,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 400; line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(12,12,12,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; color: var(--text); flex-shrink: 0; }
+  .nav-logo span { color: var(--red); }
+
+  .nav-links { display: flex; align-items: center; gap: 0.8rem; list-style: none; flex-shrink: 0; width: auto; }
+  .nav-links li { flex-shrink: 0; }
+  .nav-links a {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.25s; white-space: nowrap;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+  /* Bouton Prendre RDV */
+  .nav-rdv {
+    background: var(--red) !important;
+    color: #fff !important;
+    padding: 0.35rem 0.8rem !important;
+    border-radius: 3px !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    transition: background 0.25s !important;
+    white-space: nowrap !important;
+  }
+  .nav-rdv:hover { background: var(--red-dark) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 5rem 3rem; position: relative; overflow: hidden; background: var(--bg);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(217,43,43,0.12) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.015) 59px, rgba(255,255,255,0.015) 60px);
+  }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 1.5rem; }
+  .hero-tag::before { content: ''; width: 24px; height: 2px; background: var(--red); }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 10vw, 9rem); line-height: 0.92; letter-spacing: 0.02em; position: relative; z-index: 1; }
+  .hero h1 .mot-gris { color: var(--muted); }
+  .hero-sub { max-width: 480px; font-size: 1.05rem; font-weight: 300; color: var(--muted); margin-top: 1.8rem; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+  .hero-actions { display: flex; gap: 1rem; position: relative; z-index: 1; }
+  .btn-primary { background: var(--red); color: #fff; padding: 0.9rem 2.2rem; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 3px; transition: background 0.25s, transform 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .btn-ghost { border: 1px solid rgba(255,255,255,0.2); color: var(--text); padding: 0.9rem 2.2rem; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 3px; transition: border-color 0.25s, transform 0.2s; display: inline-block; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
+  .hero-scroll { position: absolute; right: 3rem; bottom: 3rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .hero-scroll::after { content: ''; width: 1px; height: 60px; background: linear-gradient(to bottom, var(--muted), transparent); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); position: relative; z-index: 1; }
+  .hero-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 0.05em; }
+  .hero-stat-num span { color: var(--red); }
+  .hero-stat-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* SECTIONS */
+  section { padding: 7rem 3rem; }
+  .section-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
+  .section-tag::before { content: ''; width: 20px; height: 2px; background: var(--red); }
+  h2.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5vw, 4.5rem); line-height: 1; letter-spacing: 0.03em; margin-bottom: 1rem; }
+
+  /* SERVICES */
+  .services { background: var(--bg2); }
+  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem; }
+  .services-desc { max-width: 400px; font-size: 1rem; color: var(--muted); font-weight: 300; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .service-card { background: var(--bg2); padding: 2.2rem 2rem; transition: background 0.3s; }
+  .service-card:hover { background: var(--bg3); }
+  .service-icon { width: 44px; height: 44px; margin-bottom: 1.4rem; color: var(--red); }
+  .service-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .service-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; line-height: 1.65; }
+
+  /* ABOUT */
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .about-visual { position: relative; }
+  .about-block { width: 100%; aspect-ratio: 4/5; background: var(--bg3); border: 1px solid var(--border); position: relative; overflow: hidden; }
+  .about-block::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--red); }
+  .about-accent { position: absolute; top: -1.5rem; right: -1.5rem; width: 120px; height: 120px; border: 2px solid var(--red); opacity: 0.3; }
+  .about-badge { position: absolute; bottom: 2rem; left: -2rem; background: var(--red); padding: 1.2rem 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; line-height: 1.1; }
+  .about-content .lead { font-size: 1.15rem; font-weight: 300; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.75; }
+  .about-content p { font-size: 0.95rem; color: var(--muted); font-weight: 300; margin-bottom: 1rem; line-height: 1.75; }
+  .about-timeline { margin-top: 2.5rem; }
+  .timeline-item { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .timeline-year { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; color: var(--red); min-width: 60px; }
+  .timeline-text { font-size: 0.9rem; color: var(--muted); padding-top: 0.2rem; }
+
+  /* WHY */
+  .why { background: var(--bg2); }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-top: 4rem; }
+  .why-card { padding: 2rem; border: 1px solid var(--border); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+  .why-card:hover { border-color: var(--red); transform: translateY(-4px); }
+  .why-num { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; color: rgba(255,255,255,0.04); position: absolute; top: 0.5rem; right: 1rem; line-height: 1; }
+  .why-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.7rem; position: relative; z-index: 1; }
+  .why-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; line-height: 1.7; position: relative; z-index: 1; }
+
+  /* CONTACT */
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; max-width: 1200px; margin: 0 auto; align-items: start; }
+  .contact-info { margin-top: 3rem; }
+  .info-block { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+  .info-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.4rem; }
+  .info-value { font-size: 1rem; }
+  .info-value a { color: var(--text); text-decoration: none; }
+  .info-value a:hover { color: var(--red); }
+  .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; }
+  .hour-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 0.3rem 0; }
+  .hour-day { color: var(--muted); }
+  .hour-time { font-weight: 500; }
+  .hour-closed { color: var(--muted); font-style: italic; }
+  .map-placeholder { width: 100%; height: 300px; background: var(--bg3); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; color: var(--muted); font-size: 0.9rem; margin-top: 3rem; }
+  .map-pin { color: var(--red); }
+  .contact-form { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .form-group input, .form-group textarea, .form-group select { background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 0.8rem 1rem; font-family: 'Outfit', sans-serif; font-size: 0.95rem; border-radius: 2px; outline: none; transition: border-color 0.25s; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--red); }
+  .form-group textarea { min-height: 120px; resize: vertical; }
+  .form-submit { background: var(--red); color: #fff; border: none; padding: 1rem 2rem; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background 0.25s; align-self: flex-start; }
+  .form-submit:hover { background: var(--red-dark); }
+
+  /* FOOTER */
+  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; }
+  .footer-logo span { color: var(--red); }
+  .footer-copy { font-size: 0.8rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.78rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.25s; }
+  .footer-links a:hover { color: var(--text); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-center { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 5rem 1.5rem 4rem; }
+    .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { display: none; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <div class="nav-logo">AUTO<span>-</span>BAN</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-rdv">Prendre rendez-vous</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">Garage — Fribourg, Suisse</div>
+  <h1>
+    L'EXPERTISE<br>
+    <span class="mot-gris">AUTOMOBILE</span><br>
+    À VOTRE SERVICE
+  </h1>
+  <p class="hero-sub">
+    Votre garage de confiance à Fribourg. Ingénieur HES diplômé,
+    30 ans de passion pour la mécanique — toutes marques, tous services.
+  </p>
+  <div class="hero-actions">
+    <a href="#services" class="btn-primary">Nos Services</a>
+    <a href="#contact"  class="btn-ghost">Nous contacter</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="hero-stat-num">30<span>+</span></div><div class="hero-stat-label">Ans d'expérience</div></div>
+    <div><div class="hero-stat-num">8</div><div class="hero-stat-label">Services proposés</div></div>
+    <div><div class="hero-stat-num">100<span>%</span></div><div class="hero-stat-label">Toutes marques</div></div>
+  </div>
+  <div class="hero-scroll">Défiler</div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-tag">Ce que nous faisons</div>
+      <h2 class="section-title">NOS<br>PRESTATIONS</h2>
+    </div>
+    <p class="services-desc">Une gamme complète de services automobiles, réalisés avec soin et précision par un ingénieur HES passionné.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/></svg>
+      <h3>Réparations toutes marques</h3>
+      <p>Entretien minutieux et réparations pour toutes les marques. Sécurité et performance garanties.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M8 6V4m8 2V4M3 10h18"/></svg>
+      <h3>Vente de véhicules d'occasion</h3>
+      <p>Des voitures d'occasion rigoureusement sélectionnées, inspectées et préparées avec soin.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2"/></svg>
+      <h3>Service de pneus</h3>
+      <p>Vente, montage et stockage de pneus. Sécurité optimale en toutes saisons.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="16" height="8" rx="2"/><path d="M22 12h-4M6 8V6m4 2V6"/></svg>
+      <h3>Service de batterie</h3>
+      <p>Test et remplacement de batterie pour un démarrage fiable et une longévité maximale.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-4.97 4.03-9 9-9s9 4.03 9 9"/><path d="M3 12h4l3 6 4-12 3 6h4"/></svg>
+      <h3>Service d'échappement</h3>
+      <p>Diagnostic, réparation et remplacement des systèmes d'échappement. Conformité assurée.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+      <h3>Préparation à l'expertise</h3>
+      <p>Votre véhicule préparé et contrôlé de A à Z avant le contrôle technique officiel.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M2 9h20M9 4v5m6-5v5"/></svg>
+      <h3>Service de pare-brise</h3>
+      <p>Remplacement et réparation de pare-brise par des professionnels qualifiés.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12C12 8 8 6 5 8M12 12C12 8 16 6 19 8"/><path d="M5 8c0 5 4 8 7 10M19 8c0 5-4 8-7 10"/></svg>
+      <h3>Service climatisation</h3>
+      <p>Entretien et recharge de climatisation pour un confort optimal en toutes saisons.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--bg);">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-block">
+        <svg width="100%" height="100%" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="500" fill="#141414"/>
+          <path d="M60 320 Q80 260 160 240 L240 220 Q320 215 360 240 L380 280 Q390 310 380 330 L60 330 Z" fill="none" stroke="rgba(217,43,43,0.4)" stroke-width="1.5"/>
+          <ellipse cx="120" cy="330" rx="35" ry="35" fill="none" stroke="rgba(217,43,43,0.3)" stroke-width="1.5"/>
+          <ellipse cx="320" cy="330" rx="35" ry="35" fill="none" stroke="rgba(217,43,43,0.3)" stroke-width="1.5"/>
+          <line x1="60" y1="400" x2="340" y2="400" stroke="rgba(217,43,43,0.6)" stroke-width="2"/>
+          <text x="200" y="150" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="80" fill="rgba(217,43,43,0.08)" letter-spacing="5">AUTO-BAN</text>
+          <text x="200" y="200" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="13" fill="rgba(255,255,255,0.2)" letter-spacing="4">FRIBOURG · SUISSE</text>
+        </svg>
+      </div>
+      <div class="about-accent"></div>
+      <div class="about-badge">Fondé<br>en 2018</div>
+    </div>
+    <div class="about-content reveal">
+      <div class="section-tag">Notre histoire</div>
+      <h2 class="section-title">PASSION &amp;<br>EXPERTISE</h2>
+      <p class="lead">Le Garage Auto-Ban, c'est l'histoire d'un homme qui a transformé sa passion pour la mécanique en une carrière d'excellence.</p>
+      <p>Ban TUY a débuté par un CFC en mécanique automobile obtenu avec brio en 1994. Refusant de s'arrêter là, il a décroché un diplôme d'Ingénieur en mécanique à la HES en 2000.</p>
+      <p>Fondé en 2018 à Fribourg, le garage propose aujourd'hui une gamme complète de prestations automobiles. Confier votre véhicule au Garage Auto-Ban, c'est la garantie d'un travail soigné par un passionné.</p>
+      <div class="about-timeline">
+        <div class="timeline-item"><div class="timeline-year">1994</div><div class="timeline-text">Obtention du CFC en mécanique automobile avec mention</div></div>
+        <div class="timeline-item"><div class="timeline-year">2000</div><div class="timeline-text">Diplôme d'Ingénieur en mécanique — Haute École Spécialisée (HES)</div></div>
+        <div class="timeline-item"><div class="timeline-year">2018</div><div class="timeline-text">Fondation du Garage Auto-Ban à Fribourg</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 1rem;">
+      <div class="section-tag" style="justify-content:center;">Pourquoi nous choisir</div>
+      <h2 class="section-title">VOS AVANTAGES</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card"><div class="why-num">01</div><h3>Ingénieur diplômé HES</h3><p>Votre voiture diagnostiquée et réparée par un ingénieur en mécanique — rare sur le marché.</p></div>
+      <div class="why-card"><div class="why-num">02</div><h3>Toutes marques acceptées</h3><p>Du véhicule de luxe à la citadine, chaque voiture reçoit la même attention et le même soin.</p></div>
+      <div class="why-card"><div class="why-num">03</div><h3>Qualité & transparence</h3><p>Devis clair, travaux expliqués, aucune mauvaise surprise. La confiance avant tout.</p></div>
+      <div class="why-card"><div class="why-num">04</div><h3>Service complet en un lieu</h3><p>Réparations, pneus, batterie, climatisation, expertise, pare-brise — tout sous un même toit.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bg);">
+  <div class="contact-inner">
+    <div>
+      <div class="reveal">
+        <div class="section-tag">Nous trouver</div>
+        <h2 class="section-title">CONTACT &amp;<br>HORAIRES</h2>
+      </div>
+      <div class="contact-info reveal">
+        <div class="info-block"><div class="info-label">Adresse</div><div class="info-value">Rue de la Carrière 42b<br>1700 Fribourg, Suisse</div></div>
+        <div class="info-block"><div class="info-label">Site web</div><div class="info-value"><a href="https://auto-ban.ch">auto-ban.ch</a></div></div>
+        <div class="info-block">
+          <div class="info-label">Horaires d'ouverture</div>
+          <div class="info-value" style="margin-top:0.5rem;">
+            <div class="hours-grid">
+              <div>
+                <div class="hour-row"><span class="hour-day">Lundi</span><span class="hour-time">08:00–18:00</span></div>
+                <div class="hour-row"><span class="hour-day">Mardi</span><span class="hour-time">08:00–18:00</span></div>
+                <div class="hour-row"><span class="hour-day">Mercredi</span><span class="hour-time">08:00–18:00</span></div>
+              </div>
+              <div>
+                <div class="hour-row"><span class="hour-day">Jeudi</span><span class="hour-time">08:00–18:00</span></div>
+                <div class="hour-row"><span class="hour-day">Vendredi</span><span class="hour-time">08:00–18:00</span></div>
+                <div class="hour-row"><span class="hour-day">Sam–Dim</span><span class="hour-closed">Fermé</span></div>
+              </div>
+            </div>
+            <p style="font-size:0.78rem;color:var(--muted);margin-top:0.6rem;">Pause midi : 12:00–13:30</p>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder reveal">
+        <svg class="map-pin" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <span>Rue de la Carrière 42b, Fribourg</span>
+        <a href="https://maps.google.com/?q=Rue+de+la+Carriere+42b+Fribourg" style="font-size:0.78rem;color:var(--red);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">Ouvrir dans Maps →</a>
+      </div>
+    </div>
+    <div>
+      <div class="reveal">
+        <div class="section-tag">Écrivez-nous</div>
+        <h2 class="section-title">PRENDRE<br>RENDEZ-VOUS</h2>
+      </div>
+      <form class="contact-form reveal" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group"><label>Prénom</label><input type="text" placeholder="Jean"></div>
+          <div class="form-group"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="jean.dupont@email.ch"></div>
+        <div class="form-group">
+          <label>Service souhaité</label>
+          <select>
+            <option value="">Sélectionnez un service</option>
+            <option>Réparation / Entretien</option>
+            <option>Vente véhicule d'occasion</option>
+            <option>Service pneus</option>
+            <option>Service batterie</option>
+            <option>Service climatisation</option>
+            <option>Préparation expertise</option>
+            <option>Service pare-brise</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Décrivez votre demande, le véhicule concerné (marque, modèle, année)..."></textarea></div>
+        <button type="submit" class="form-submit">Envoyer la demande →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AUTO<span>-</span>BAN</div>
+  <div class="footer-copy">© 2025 Garage Auto-Ban TUY — Fribourg, Suisse</div>
+  <nav class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#about">À propos</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</footer>
+
+<script>
+// ── Reveal ──────────────────────────────────────────────────
+document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) el.classList.add('visible');
+  }, { threshold: 0.1 }).observe(el);
+});
+
+// ── Formulaire ──────────────────────────────────────────────
+document.querySelector('.form-submit').addEventListener('click', function () {
+  this.textContent = 'Message envoyé ✓';
+  this.style.background = '#1a6e3c';
+  setTimeout(() => { this.textContent = 'Envoyer la demande →'; this.style.background = ''; }, 3000);
+});
+</script>
+</body>
+</html>

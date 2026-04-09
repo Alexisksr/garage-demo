@@ -442,9 +442,10 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#rdv">Prendre RDV</a></li>
     <div class="nav-indicator"></div>
   </ul>
-  <a href="#contact" class="nav-cta">Prendre RDV</a>
+  <a href="#rdv" class="nav-cta">Prendre RDV</a>
 </nav>
 
 <!-- HERO -->
@@ -722,7 +723,7 @@
       </div>
     </div>
 
-    <div>
+    <div id="rdv">
       <div class="reveal">
         <div class="section-tag">Écrivez-nous</div>
         <h2 class="section-title">PRENDRE<br>RENDEZ-VOUS</h2>
@@ -782,7 +783,7 @@
 // Nav active indicator
 const navLinks = document.querySelectorAll('.nav-links a');
 const indicator = document.querySelector('.nav-indicator');
-const sections = ['services','about','contact'].map(id => document.getElementById(id));
+const sections = ['services','about','contact','rdv'].map(id => document.getElementById(id));
 
 function moveIndicator(link) {
   if (!link || !indicator) return;
