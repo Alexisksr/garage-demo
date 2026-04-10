@@ -33,7 +33,8 @@
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 4rem; align-items: center;
     padding: 1.25rem 3rem;
     background: rgba(12,12,12,0.85);
     backdrop-filter: blur(12px);
@@ -46,21 +47,27 @@
     color: var(--text);
   }
   .nav-logo span { color: var(--red); }
-  .nav-right { display: flex; align-items: center; gap: 2rem; }
-  .nav-links { display: flex; gap: 1.2rem; list-style: none; position: relative; white-space: nowrap; }
+  .nav-links {
+    display: flex; justify-content: center;
+    gap: 2rem; list-style: none; white-space: nowrap;
+  }
   .nav-links a {
     font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--muted);
     text-decoration: none; transition: color 0.25s;
+    position: relative; padding-bottom: 5px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 2px; background: var(--red);
+    transition: width 0.3s ease;
   }
   .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
   .nav-links a.active { color: var(--text); }
-  .nav-indicator {
-    position: absolute; bottom: 0; left: 0;
-    width: 0; height: 2px; background: var(--red); opacity: 0;
-    transition: left 0.3s ease, width 0.3s ease, opacity 0.2s ease;
-    pointer-events: none;
-  }
+  .nav-links a.active::after { width: 100%; }
 
   /* HERO */
   .hero {
@@ -432,7 +439,6 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#contact">Contact</a></li>
-    <div class="nav-indicator"></div>
   </ul>
 </nav>
 
@@ -770,22 +776,12 @@
 <script>
 // Nav active indicator
 const navLinks = document.querySelectorAll('.nav-links a');
-const indicator = document.querySelector('.nav-indicator');
 const sections = ['services','about','contact'].map(id => document.getElementById(id));
-
-function moveIndicator(link) {
-  if (!link || !indicator) return;
-  const li = link.parentElement;
-  indicator.style.left = li.offsetLeft + 'px';
-  indicator.style.width = li.offsetWidth + 'px';
-  indicator.style.opacity = '1';
-}
 
 function setActive(id) {
   navLinks.forEach(a => a.classList.remove('active'));
   const active = document.querySelector(`.nav-links a[href="#${id}"]`);
-  if (active) { active.classList.add('active'); moveIndicator(active); }
-  else { if (indicator) indicator.style.opacity = '0'; }
+  if (active) active.classList.add('active');
 }
 
 const sectionObserver = new IntersectionObserver((entries) => {
@@ -794,11 +790,6 @@ const sectionObserver = new IntersectionObserver((entries) => {
 sections.forEach(s => { if (s) sectionObserver.observe(s); });
 
 navLinks.forEach(a => a.addEventListener('click', () => setActive(a.getAttribute('href').slice(1))));
-
-window.addEventListener('resize', () => {
-  const active = document.querySelector('.nav-links a.active');
-  if (active) moveIndicator(active);
-}, { passive: true });
 
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries) => {
