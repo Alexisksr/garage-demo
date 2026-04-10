@@ -50,6 +50,7 @@
   .nav-links {
     display: flex; justify-content: center;
     gap: 2.8rem; list-style: none; white-space: nowrap;
+    position: relative;
   }
   .nav-links a {
     font-size: 0.72rem; font-weight: 500;
@@ -58,16 +59,14 @@
     transition: color 0.25s ease;
     position: relative; padding-bottom: 6px;
   }
-  .nav-links a::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0;
-    width: 0; height: 1px; background: var(--red);
-    transition: width 0.3s ease;
-  }
   .nav-links a:hover { color: #fff; }
-  .nav-links a:hover::after { width: 100%; }
   .nav-links a.active { color: #fff; }
-  .nav-links a.active::after { width: 100%; }
+  .nav-slider {
+    position: absolute; bottom: -4px; left: 0;
+    height: 2px; background: var(--red);
+    transition: left 0.3s ease, width 0.3s ease, opacity 0.2s ease;
+    pointer-events: none; opacity: 0;
+  }
 
   /* HERO */
   .hero {
@@ -444,6 +443,7 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#contact">Contact</a></li>
+    <span class="nav-slider"></span>
   </ul>
 </nav>
 
@@ -786,13 +786,33 @@
 <script>
 // Nav active indicator
 const navLinks = document.querySelectorAll('.nav-links a');
+const slider = document.querySelector('.nav-slider');
+const navList = document.querySelector('.nav-links');
 const sections = ['services','about','contact'].map(id => document.getElementById(id));
+
+function moveSlider(el) {
+  if (!slider || !el) return;
+  const listRect = navList.getBoundingClientRect();
+  const rect = el.getBoundingClientRect();
+  slider.style.left = (rect.left - listRect.left) + 'px';
+  slider.style.width = rect.width + 'px';
+  slider.style.opacity = '1';
+}
 
 function setActive(id) {
   navLinks.forEach(a => a.classList.remove('active'));
   const active = document.querySelector(`.nav-links a[href="#${id}"]`);
-  if (active) active.classList.add('active');
+  if (active) { active.classList.add('active'); moveSlider(active); }
+  else if (slider) { slider.style.opacity = '0'; }
 }
+
+navLinks.forEach(a => {
+  a.addEventListener('mouseenter', () => moveSlider(a));
+  a.addEventListener('mouseleave', () => {
+    const active = document.querySelector('.nav-links a.active');
+    if (active) moveSlider(active); else if (slider) slider.style.opacity = '0';
+  });
+});
 
 const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
@@ -800,6 +820,11 @@ const sectionObserver = new IntersectionObserver((entries) => {
 sections.forEach(s => { if (s) sectionObserver.observe(s); });
 
 navLinks.forEach(a => a.addEventListener('click', () => setActive(a.getAttribute('href').slice(1))));
+
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.nav-links a.active');
+  if (active) moveSlider(active);
+}, { passive: true });
 
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries) => {
