@@ -826,6 +826,12 @@ window.addEventListener('resize', () => {
   if (active) moveSlider(active);
 }, { passive: true });
 
+// Init slider on first link at load
+window.addEventListener('load', () => {
+  const first = navLinks[0];
+  if (first) { first.classList.add('active'); moveSlider(first); }
+});
+
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
