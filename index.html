@@ -61,14 +61,6 @@
     transition: left 0.3s ease, width 0.3s ease, opacity 0.2s ease;
     pointer-events: none;
   }
-  .nav-cta {
-    background: var(--red); color: #fff;
-    padding: 0.55rem 1.4rem; font-size: 0.82rem;
-    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    text-decoration: none; border-radius: 3px;
-    transition: background 0.25s, transform 0.2s;
-  }
-  .nav-cta:hover { background: var(--red-dark); transform: translateY(-1px); }
 
   /* HERO */
   .hero {
@@ -413,10 +405,8 @@
   @media (max-width: 600px) {
     nav { padding: 0.7rem 1rem; }
     .nav-logo { font-size: 1.1rem; }
-    .nav-right { gap: 0.8rem; }
     .nav-links { gap: 0.9rem; }
     .nav-links a { font-size: 0.6rem; letter-spacing: 0.04em; }
-    .nav-cta { font-size: 0.6rem; padding: 0.35rem 0.7rem; letter-spacing: 0.04em; }
     section { padding: 5rem 1.5rem; }
     .hero { padding: 5rem 1.5rem 4rem; }
     .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
@@ -442,9 +432,9 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#rdv">Prendre rendez-vous</a></li>
     <div class="nav-indicator"></div>
   </ul>
-  <a href="#rdv" class="nav-cta">Prendre rendez-vous</a>
 </nav>
 
 <!-- HERO -->
@@ -782,7 +772,7 @@
 // Nav active indicator
 const navLinks = document.querySelectorAll('.nav-links a');
 const indicator = document.querySelector('.nav-indicator');
-const sections = ['services','about','contact'].map(id => document.getElementById(id));
+const sections = ['services','about','contact','rdv'].map(id => document.getElementById(id));
 
 function moveIndicator(link) {
   if (!link || !indicator) return;
