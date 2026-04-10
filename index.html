@@ -32,12 +32,13 @@
 
   /* NAV */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 100;
     display: flex; align-items: center;
     padding: 1.25rem 3rem;
     background: rgba(12,12,12,0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
+    box-sizing: border-box;
   }
   .nav-logo {
     font-family: 'Bebas Neue', sans-serif;
@@ -45,19 +46,22 @@
     letter-spacing: 0.08em;
     color: var(--text);
     flex-shrink: 0;
+    margin-right: 3rem;
   }
   .nav-logo span { color: var(--red); }
   .nav-links {
     display: flex; justify-content: center; align-items: center;
-    gap: 2.4rem; list-style: none; white-space: nowrap;
+    gap: 2.4rem; list-style: none;
     position: relative; flex: 1;
+    overflow: visible;
   }
   .nav-links a {
     font-size: 0.72rem; font-weight: 500;
-    letter-spacing: 0.15em; text-transform: uppercase;
+    letter-spacing: 0.12em; text-transform: uppercase;
     color: #aaa; text-decoration: none;
     transition: color 0.25s ease;
     position: relative; padding-bottom: 6px;
+    white-space: nowrap;
   }
   .nav-links a:hover { color: #fff; }
   .nav-links a.active { color: #fff; }
@@ -414,10 +418,10 @@
   @media (max-width: 600px) {
     .why-grid { grid-template-columns: 1fr; }
     .why-card:last-child { grid-column: auto; }
-    nav { padding: 0.7rem 1rem; }
-    .nav-logo { font-size: 1.1rem; }
-    .nav-links { gap: 0.9rem; }
-    .nav-links a { font-size: 0.6rem; letter-spacing: 0.04em; }
+    nav { padding: 0.7rem 1rem; gap: 1rem; }
+    .nav-logo { font-size: 1.1rem; margin-right: 0; }
+    .nav-links { gap: 1rem; overflow-x: auto; justify-content: flex-start; }
+    .nav-links a { font-size: 0.58rem; letter-spacing: 0.04em; }
     section { padding: 5rem 1.5rem; }
     .hero { padding: 5rem 1.5rem 4rem; }
     .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
