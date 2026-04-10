@@ -440,6 +440,7 @@
 <nav>
   <div class="nav-logo">AUTO<span>-</span>BAN</div>
   <ul class="nav-links">
+    <li><a href="#home">Accueil</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -788,7 +789,7 @@
 const navLinks = document.querySelectorAll('.nav-links a');
 const slider = document.querySelector('.nav-slider');
 const navList = document.querySelector('.nav-links');
-const sections = ['services','about','contact'].map(id => document.getElementById(id));
+const sections = ['home','services','about','contact'].map(id => document.getElementById(id));
 
 function moveSlider(el) {
   if (!slider || !el) return;
@@ -828,8 +829,8 @@ window.addEventListener('resize', () => {
 
 // Init slider on first link at load
 window.addEventListener('load', () => {
-  const first = navLinks[0];
-  if (first) { first.classList.add('active'); moveSlider(first); }
+  const accueil = document.querySelector('.nav-links a[href="#home"]');
+  if (accueil) { accueil.classList.add('active'); moveSlider(accueil); }
 });
 
 const reveals = document.querySelectorAll('.reveal');
