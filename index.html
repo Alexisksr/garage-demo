@@ -9,8 +9,8 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --red: #D92B2B;
-    --red-dark: #A81F1F;
+    --red: #E11D2E;
+    --red-dark: #B81A1A;
     --bg: #0C0C0C;
     --bg2: #141414;
     --bg3: #1A1A1A;
@@ -42,11 +42,9 @@
     border-bottom: 1px solid var(--border);
   }
   .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem; letter-spacing: 0.08em;
-    color: var(--text); flex-shrink: 0;
+    height: 50px;
+    flex-shrink: 0;
   }
-  .nav-logo span { color: var(--red); }
   .nav-links {
     display: flex; flex-direction: row;
     justify-content: center; align-items: center;
@@ -393,10 +391,8 @@
     flex-wrap: wrap; gap: 1.5rem;
   }
   .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem; letter-spacing: 0.08em;
+    height: 40px;
   }
-  .footer-logo span { color: var(--red); }
   .footer-copy {
     font-size: 0.8rem; color: var(--muted);
   }
@@ -420,7 +416,7 @@
     .why-grid { grid-template-columns: 1fr; }
     .why-card:last-child { grid-column: auto; }
     nav { padding: 0.7rem 1rem; gap: 1rem; }
-    .nav-logo { font-size: 1.1rem; margin-right: 0; }
+    .nav-logo { height: 40px; }
     .nav-links { gap: 1rem; overflow-x: auto; justify-content: flex-start; }
     .nav-links a { font-size: 0.58rem; letter-spacing: 0.04em; }
     section { padding: 5rem 1.5rem; }
@@ -443,7 +439,7 @@
 
 <!-- NAVIGATION -->
 <nav>
-  <div class="nav-logo">AUTO<span>-</span>BAN</div>
+  <img src="assets/logo.png" alt="Auto-Ban Logo" class="nav-logo">
   <ul class="nav-links">
     <li><a href="#home">Accueil</a></li>
     <li><a href="#services">Services</a></li>
@@ -780,7 +776,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">AUTO<span>-</span>BAN</div>
+  <img src="assets/logo.png" alt="Auto-Ban Logo" class="footer-logo">
   <div class="footer-copy">© 2025 Garage Auto-Ban TUY — Fribourg, Suisse</div>
   <nav class="footer-links">
     <a href="#services">Services</a>
