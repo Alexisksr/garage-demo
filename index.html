@@ -439,7 +439,7 @@
 
 <!-- NAVIGATION -->
 <nav>
-  <img src="assets/logo.png" alt="Auto-Ban Logo" class="nav-logo">
+  <img src="assets/logo.svg" alt="Auto-Ban Logo" class="nav-logo">
   <ul class="nav-links">
     <li><a href="#home">Accueil</a></li>
     <li><a href="#services">Services</a></li>
@@ -776,7 +776,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <img src="assets/logo.png" alt="Auto-Ban Logo" class="footer-logo">
+  <img src="assets/logo.svg" alt="Auto-Ban Logo" class="footer-logo">
   <div class="footer-copy">© 2025 Garage Auto-Ban TUY — Fribourg, Suisse</div>
   <nav class="footer-links">
     <a href="#services">Services</a>
@@ -818,7 +818,7 @@ navLinks.forEach(a => {
 
 const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
-}, { rootMargin: '-20% 0px -60% 0px' });
+}, { rootMargin: '0px 0px -80% 0px' });
 sections.forEach(s => { if (s) sectionObserver.observe(s); });
 
 navLinks.forEach(a => a.addEventListener('click', () => setActive(a.getAttribute('href').slice(1))));
