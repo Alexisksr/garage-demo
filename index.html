@@ -11,18 +11,21 @@
   :root {
     --red: #E11D2E;
     --red-dark: #B81A1A;
-    --bg: #0C0C0C;
-    --bg2: #141414;
-    --bg3: #1A1A1A;
-    --text: #F2EDE6;
-    --muted: #888880;
-    --border: rgba(255,255,255,0.08);
+    --black: #111111;
+    --dark: #0C0C0C;
+    --dark2: #1A1A1A;
+    --white: #FFFFFF;
+    --light: #F6F6F6;
+    --light2: #EFEFEF;
+    --border: #E0E0E0;
+    --border-dark: rgba(255,255,255,0.1);
+    --text: #111111;
+    --muted: #777777;
   }
 
   html { scroll-behavior: smooth; }
-
   body {
-    background: var(--bg);
+    background: var(--white);
     color: var(--text);
     font-family: 'Outfit', sans-serif;
     font-weight: 400;
@@ -30,98 +33,93 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
+  /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0;
-    width: 100%; z-index: 100; box-sizing: border-box;
-    display: flex; flex-direction: row;
-    align-items: center; gap: 3rem;
-    padding: 1.25rem 3rem;
-    background: rgba(12,12,12,0.85);
-    backdrop-filter: blur(12px);
+    width: 100%; z-index: 100;
+    display: flex; align-items: center; gap: 3rem;
+    padding: 0 3rem;
+    background: var(--white);
     border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 16px rgba(0,0,0,0.06);
+    height: 72px;
   }
-  .nav-logo {
-    height: 50px;
-    flex-shrink: 0;
-  }
+  .nav-logo { height: 46px; flex-shrink: 0; }
   .nav-links {
-    display: flex; flex-direction: row;
-    justify-content: center; align-items: center;
-    gap: 2rem; list-style: none;
+    display: flex; align-items: center;
+    gap: 2.2rem; list-style: none;
     position: relative; flex: 1;
+    justify-content: center;
     margin: 0; padding: 0;
   }
   .nav-links li { display: list-item; }
   .nav-links a {
     display: inline-block;
-    font-size: 0.72rem; font-weight: 500;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: #aaa; text-decoration: none;
-    transition: color 0.25s ease;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.25s;
     position: relative; padding-bottom: 6px;
     white-space: nowrap;
   }
-  .nav-links a:hover { color: #fff; }
-  .nav-links a.active { color: #fff; }
+  .nav-links a:hover { color: var(--black); }
+  .nav-links a.active { color: var(--black); }
   .nav-slider {
     position: absolute; bottom: -4px; left: 0;
     height: 2px; background: var(--red);
     transition: left 0.3s ease, width 0.3s ease, opacity 0.2s ease;
     pointer-events: none; opacity: 0;
   }
+  .nav-cta {
+    background: var(--red); color: #fff;
+    padding: 0.6rem 1.5rem; font-size: 0.72rem;
+    font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; border-radius: 2px;
+    transition: background 0.25s;
+    white-space: nowrap; margin-left: auto;
+  }
+  .nav-cta:hover { background: var(--red-dark); }
 
-  /* HERO */
+  /* ── HERO — dark, atmospheric ── */
   .hero {
     min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 5rem 3rem 5rem;
+    padding: 8rem 3rem 5rem;
     position: relative; overflow: hidden;
-    background: var(--bg);
+    background: var(--dark);
   }
   .hero-bg {
     position: absolute; inset: 0;
-    background: 
-      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(225,29,46,0.12) 0%, transparent 60%),
+    background:
+      radial-gradient(ellipse 70% 60% at 75% 40%, rgba(225,29,46,0.16) 0%, transparent 65%),
       repeating-linear-gradient(
         0deg,
-        transparent,
-        transparent 39px,
-        rgba(255,255,255,0.025) 39px,
-        rgba(255,255,255,0.025) 40px
+        transparent, transparent 39px,
+        rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px
       ),
       repeating-linear-gradient(
         90deg,
-        transparent,
-        transparent 59px,
-        rgba(255,255,255,0.015) 59px,
-        rgba(255,255,255,0.015) 60px
+        transparent, transparent 59px,
+        rgba(255,255,255,0.015) 59px, rgba(255,255,255,0.015) 60px
       );
   }
   .hero-tag {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--red);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem; position: relative; z-index: 1;
   }
-  .hero-tag::before {
-    content: ''; width: 24px; height: 2px; background: var(--red);
-  }
+  .hero-tag::before { content: ''; width: 24px; height: 2px; background: var(--red); }
   .hero h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(4.5rem, 10vw, 9rem);
-    line-height: 0.92;
-    letter-spacing: 0.02em;
-    color: var(--text);
+    line-height: 0.92; letter-spacing: 0.02em;
+    color: #F2EDE6;
     position: relative; z-index: 1;
   }
-  .hero h1 .outline {
-    -webkit-text-stroke: 0px;
-    color: rgba(242,237,230,0.3);
-  }
+  .hero h1 .outline { color: rgba(242,237,230,0.18); }
   .hero-sub {
-    max-width: 480px;
-    font-size: 1.05rem; font-weight: 300;
-    color: var(--muted);
+    max-width: 480px; font-size: 1.05rem; font-weight: 300;
+    color: rgba(255,255,255,0.5);
     margin-top: 1.8rem; margin-bottom: 2.5rem;
     position: relative; z-index: 1;
   }
@@ -131,57 +129,66 @@
     padding: 0.9rem 2.2rem; font-size: 0.88rem;
     font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
     text-decoration: none; border-radius: 3px;
-    transition: background 0.25s, transform 0.2s;
-    display: inline-block;
+    transition: background 0.25s, transform 0.2s; display: inline-block;
   }
   .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
-  .btn-ghost {
-    border: 1px solid rgba(255,255,255,0.2); color: var(--text);
+  .btn-ghost-light {
+    border: 1px solid rgba(255,255,255,0.25); color: #F2EDE6;
     padding: 0.9rem 2.2rem; font-size: 0.88rem;
     font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
     text-decoration: none; border-radius: 3px;
-    transition: border-color 0.25s, transform 0.2s;
-    display: inline-block;
+    transition: border-color 0.25s, transform 0.2s; display: inline-block;
   }
-  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
-
+  .btn-ghost-light:hover { border-color: rgba(255,255,255,0.6); transform: translateY(-2px); }
   .hero-scroll {
     position: absolute; right: 3rem; bottom: 3rem;
     display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
     font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted);
+    color: rgba(255,255,255,0.25);
   }
   .hero-scroll::after {
     content: ''; width: 1px; height: 60px;
-    background: linear-gradient(to bottom, var(--muted), transparent);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
   }
-
   .hero-stats {
     display: flex; gap: 3rem;
     margin-top: 4rem; padding-top: 2rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255,255,255,0.1);
     position: relative; z-index: 1;
   }
   .hero-stat-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.8rem; letter-spacing: 0.05em;
-    color: var(--text);
+    font-size: 2.8rem; letter-spacing: 0.05em; color: #F2EDE6;
   }
   .hero-stat-num span { color: var(--red); }
   .hero-stat-label {
     font-size: 0.75rem; font-weight: 500;
     letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--muted);
+    color: rgba(255,255,255,0.3);
   }
 
-  /* SECTIONS */
-  section { padding: 7rem 3rem; }
+  /* ── RED STRIP ── */
+  .red-strip {
+    background: var(--red);
+    padding: 1.1rem 3rem;
+    display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap;
+  }
+  .strip-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #fff; white-space: nowrap;
+  }
+  .strip-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+  .strip-sep { width: 4px; height: 4px; background: rgba(255,255,255,0.4); border-radius: 50%; flex-shrink: 0; }
+
+  /* ── SECTION WRAPPERS ── */
+  .section-light { padding: 7rem 3rem; background: var(--white); }
+  .section-gray  { padding: 7rem 3rem; background: var(--light); }
 
   .section-tag {
     display: inline-flex; align-items: center; gap: 0.5rem;
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--red);
-    margin-bottom: 1rem;
+    text-transform: uppercase; color: var(--red); margin-bottom: 1rem;
   }
   .section-tag::before { content: ''; width: 20px; height: 2px; background: var(--red); }
 
@@ -189,77 +196,72 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.8rem, 5vw, 4.5rem);
     line-height: 1; letter-spacing: 0.03em;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; color: var(--black);
   }
 
-  /* SERVICES */
-  .services { background: var(--bg2); }
+  /* ── SERVICES ── */
   .services-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem;
+    max-width: 1200px; margin-left: auto; margin-right: auto;
   }
-  .services-desc {
-    max-width: 400px; font-size: 1rem; color: var(--muted); font-weight: 300;
-  }
+  .services-desc { max-width: 400px; font-size: 1rem; color: var(--muted); font-weight: 300; }
   .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1px;
-    background: var(--border);
+    gap: 1px; background: var(--border);
     border: 1px solid var(--border);
+    max-width: 1200px; margin: 0 auto;
   }
   .service-card {
-    background: var(--bg2);
-    padding: 2.2rem 2rem;
-    transition: background 0.3s;
-    cursor: default;
+    background: var(--white); padding: 2.2rem 2rem;
+    transition: background 0.3s; cursor: default;
+    position: relative;
   }
-  .service-card:hover { background: var(--bg3); }
-  .service-icon {
-    width: 44px; height: 44px; margin-bottom: 1.4rem;
-    color: var(--red);
+  .service-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 0; background: var(--red);
+    transition: height 0.3s ease;
   }
+  .service-card:hover { background: var(--light); }
+  .service-card:hover::after { height: 3px; }
+  .service-icon { width: 40px; height: 40px; margin-bottom: 1.4rem; color: var(--red); }
   .service-card h3 {
-    font-size: 1.05rem; font-weight: 600;
-    margin-bottom: 0.5rem; letter-spacing: 0.01em;
+    font-size: 1rem; font-weight: 600;
+    margin-bottom: 0.5rem; color: var(--black);
   }
-  .service-card p {
-    font-size: 0.88rem; color: var(--muted); font-weight: 300; line-height: 1.65;
-  }
+  .service-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; line-height: 1.65; }
 
-  /* ABOUT */
+  /* ── ABOUT ── */
   .about-inner {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 6rem; align-items: center;
     max-width: 1200px; margin: 0 auto;
   }
-  .about-visual {
-    position: relative;
-  }
+  .about-visual { position: relative; }
   .about-block {
     width: 100%; aspect-ratio: 4/5;
-    background: var(--bg3);
+    background: var(--light2);
     border: 1px solid var(--border);
     position: relative; overflow: hidden;
   }
   .about-block::after {
     content: '';
-    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-    background: var(--red);
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px; background: var(--red);
   }
   .about-accent {
     position: absolute; top: -1.5rem; right: -1.5rem;
     width: 120px; height: 120px;
-    border: 2px solid var(--red);
-    opacity: 0.3;
+    border: 2px solid var(--red); opacity: 0.2;
   }
   .about-badge {
     position: absolute; bottom: 2rem; left: -2rem;
-    background: var(--red);
+    background: var(--red); color: #fff;
     padding: 1.2rem 1.5rem;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem; letter-spacing: 0.06em;
-    line-height: 1.1;
+    font-size: 1.4rem; letter-spacing: 0.06em; line-height: 1.1;
   }
   .about-content .lead {
     font-size: 1.15rem; font-weight: 300; color: var(--muted);
@@ -279,80 +281,70 @@
     font-size: 1.4rem; letter-spacing: 0.05em;
     color: var(--red); min-width: 60px;
   }
-  .timeline-text {
-    font-size: 0.9rem; color: var(--muted); padding-top: 0.2rem;
-  }
+  .timeline-text { font-size: 0.9rem; color: var(--muted); padding-top: 0.2rem; }
 
-  /* WHY */
-  .why { background: var(--bg2); }
+  /* ── WHY ── */
+  .why-header-wrap { max-width: 1200px; margin: 0 auto; text-align: center; }
   .why-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 2rem; margin-top: 4rem;
+    gap: 1.5rem; margin-top: 4rem;
+    max-width: 1200px; margin-left: auto; margin-right: auto;
   }
-  .why-card:last-child {
-    grid-column: 2 / 4;
-  }
+  .why-card:last-child { grid-column: 2 / 4; }
   .why-card {
-    padding: 2rem; border: 1px solid var(--border);
+    padding: 2rem; background: var(--white);
+    border: 1px solid var(--border);
     position: relative; overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
   }
-  .why-card:hover { border-color: var(--red); transform: translateY(-4px); }
+  .why-card:hover {
+    border-color: var(--red); transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(225,29,46,0.08);
+  }
   .why-num {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 4.5rem; letter-spacing: 0.02em;
-    color: rgba(255,255,255,0.04);
-    position: absolute; top: 0.5rem; right: 1rem;
-    line-height: 1;
+    color: rgba(0,0,0,0.04);
+    position: absolute; top: 0.5rem; right: 1rem; line-height: 1;
   }
   .why-card h3 {
     font-size: 1rem; font-weight: 600;
-    margin-bottom: 0.7rem; position: relative; z-index: 1;
+    margin-bottom: 0.7rem; position: relative; z-index: 1; color: var(--black);
   }
   .why-card p {
     font-size: 0.88rem; color: var(--muted); font-weight: 300;
     line-height: 1.7; position: relative; z-index: 1;
   }
 
-  /* CONTACT */
+  /* ── CONTACT ── */
   .contact-inner {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 6rem; max-width: 1200px; margin: 0 auto;
-    align-items: start;
+    gap: 6rem; max-width: 1200px; margin: 0 auto; align-items: start;
   }
   .contact-info { margin-top: 3rem; }
-  .info-block {
-    padding: 1.5rem 0; border-bottom: 1px solid var(--border);
-  }
+  .info-block { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
   .info-label {
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--red); margin-bottom: 0.4rem;
   }
-  .info-value { font-size: 1rem; font-weight: 400; }
-  .info-value a { color: var(--text); text-decoration: none; }
+  .info-value { font-size: 1rem; font-weight: 400; color: var(--black); }
+  .info-value a { color: var(--black); text-decoration: none; }
   .info-value a:hover { color: var(--red); }
-
   .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; }
-  .hour-row {
-    display: flex; justify-content: space-between;
-    font-size: 0.88rem; padding: 0.3rem 0;
-  }
+  .hour-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 0.3rem 0; }
   .hour-day { color: var(--muted); }
-  .hour-time { font-weight: 500; }
+  .hour-time { font-weight: 500; color: var(--black); }
   .hour-closed { color: var(--muted); font-style: italic; }
-
   .map-placeholder {
-    width: 100%; height: 360px;
-    background: var(--bg3);
+    width: 100%; height: 360px; background: var(--white);
     border: 1px solid var(--border);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 1rem; color: var(--muted);
-    font-size: 0.9rem; margin-top: 3rem;
+    gap: 1rem; color: var(--muted); font-size: 0.9rem; margin-top: 3rem;
   }
   .map-pin { color: var(--red); }
 
-  /* CONTACT FORM */
+  /* ── FORM ── */
   .contact-form { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -363,11 +355,10 @@
   .form-group input,
   .form-group textarea,
   .form-group select {
-    background: var(--bg3); border: 1px solid var(--border);
-    color: var(--text); padding: 0.8rem 1rem;
+    background: var(--white); border: 1px solid var(--border);
+    color: var(--black); padding: 0.8rem 1rem;
     font-family: 'Outfit', sans-serif; font-size: 0.95rem;
-    border-radius: 2px; outline: none;
-    transition: border-color 0.25s;
+    border-radius: 2px; outline: none; transition: border-color 0.25s;
   }
   .form-group input:focus,
   .form-group textarea:focus,
@@ -382,64 +373,64 @@
   }
   .form-submit:hover { background: var(--red-dark); }
 
-  /* FOOTER */
+  /* ── FOOTER ── */
   footer {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
+    background: var(--dark);
+    border-top: 3px solid var(--red);
     padding: 3rem;
     display: flex; justify-content: space-between; align-items: center;
     flex-wrap: wrap; gap: 1.5rem;
   }
-  .footer-logo {
-    height: 40px;
+  .footer-logo-wrap {
+    background: #fff; padding: 6px 10px; border-radius: 2px;
+    display: inline-flex; align-items: center;
   }
-  .footer-copy {
-    font-size: 0.8rem; color: var(--muted);
-  }
+  .footer-logo { height: 36px; }
+  .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
   .footer-links { display: flex; gap: 1.5rem; }
   .footer-links a {
-    font-size: 0.78rem; color: var(--muted);
+    font-size: 0.78rem; color: rgba(255,255,255,0.3);
     text-decoration: none; letter-spacing: 0.08em;
     text-transform: uppercase; transition: color 0.25s;
   }
-  .footer-links a:hover { color: var(--text); }
+  .footer-links a:hover { color: #fff; }
 
-  /* REVEAL ANIMATION */
+  /* ── REVEAL ── */
   .reveal {
-    opacity: 0; transform: translateY(30px);
+    opacity: 0; transform: translateY(28px);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
   .reveal.visible { opacity: 1; transform: none; }
 
-  /* RESPONSIVE */
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-card:last-child { grid-column: auto; }
+  }
   @media (max-width: 600px) {
     .why-grid { grid-template-columns: 1fr; }
-    .why-card:last-child { grid-column: auto; }
-    nav { padding: 0.7rem 1rem; gap: 1rem; }
-    .nav-logo { height: 40px; }
-    .nav-links { gap: 1rem; overflow-x: auto; justify-content: flex-start; }
+    nav { padding: 0 1rem; gap: 1rem; height: 60px; }
+    .nav-logo { height: 34px; }
+    .nav-links { gap: 0.8rem; overflow-x: auto; justify-content: flex-start; }
     .nav-links a { font-size: 0.58rem; letter-spacing: 0.04em; }
-    section { padding: 5rem 1.5rem; }
+    .nav-cta { display: none; }
+    .section-light, .section-gray { padding: 5rem 1.5rem; }
     .hero { padding: 5rem 1.5rem 4rem; }
     .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
     .about-visual { display: none; }
     .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
     .form-row { grid-template-columns: 1fr; }
     footer { padding: 2rem 1.5rem; }
-  }
-
-  /* DECORATIVE LINE */
-  .deco-line {
-    display: block; width: 40px; height: 3px;
-    background: var(--red); margin-bottom: 2rem;
+    .red-strip { gap: 1.2rem; padding: 1rem 1.5rem; }
+    .services-header { margin-bottom: 2.5rem !important; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
+<!-- ── NAVIGATION ── -->
 <nav>
-  <img src="assets/logo.svg" alt="Auto-Ban Logo" class="nav-logo">
+  <img src="logo.png" alt="Garage Auto-Ban Logo" class="nav-logo">
   <ul class="nav-links">
     <li><a href="#home">Accueil</a></li>
     <li><a href="#services">Services</a></li>
@@ -447,9 +438,10 @@
     <li><a href="#contact">Contact</a></li>
     <span class="nav-slider"></span>
   </ul>
+  <a href="#rdv" class="nav-cta">Prendre RDV</a>
 </nav>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
   <div class="hero-tag">Garage — Fribourg, Suisse</div>
@@ -459,14 +451,13 @@
     À VOTRE SERVICE
   </h1>
   <p class="hero-sub">
-    Votre garage de confiance à Fribourg. Ingénieur HES diplômé, 
+    Votre garage de confiance à Fribourg. Ingénieur HES diplômé,
     30 ans de passion pour la mécanique — toutes marques, tous services.
   </p>
   <div class="hero-actions">
     <a href="#services" class="btn-primary">Nos Services</a>
-    <a href="#contact" class="btn-ghost">Nous contacter</a>
+    <a href="#contact" class="btn-ghost-light">Nous contacter</a>
   </div>
-
   <div class="hero-stats">
     <div>
       <div class="hero-stat-num">30<span>+</span></div>
@@ -481,19 +472,49 @@
       <div class="hero-stat-label">Toutes marques</div>
     </div>
   </div>
-
   <div class="hero-scroll">Défiler</div>
 </section>
 
-<!-- SERVICES -->
-<section class="services" id="services">
+<!-- ── RED STRIP ── -->
+<div class="red-strip">
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+    </svg>
+    Toutes marques acceptées
+  </div>
+  <div class="strip-sep"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    Ingénieur HES diplômé
+  </div>
+  <div class="strip-sep"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+    Voiture de prêt gratuite
+  </div>
+  <div class="strip-sep"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+    </svg>
+    Devis transparent &amp; gratuit
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section class="section-light" id="services">
   <div class="services-header reveal">
     <div>
       <div class="section-tag">Ce que nous faisons</div>
       <h2 class="section-title">NOS<br>PRESTATIONS</h2>
     </div>
     <p class="services-desc">
-      Une gamme complète de services automobiles, réalisés avec soin et 
+      Une gamme complète de services automobiles, réalisés avec soin et
       précision par un ingénieur HES passionné.
     </p>
   </div>
@@ -568,60 +589,50 @@
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" style="background: var(--bg);">
+<!-- ── ABOUT ── -->
+<section class="section-gray" id="about">
   <div class="about-inner">
     <div class="about-visual reveal">
       <div class="about-block">
-        <!-- Visual placeholder with SVG motif -->
         <svg width="100%" height="100%" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="500" fill="#141414"/>
-          <!-- Abstract car silhouette -->
-          <path d="M60 320 Q80 260 160 240 L240 220 Q320 215 360 240 L380 280 Q390 310 380 330 L60 330 Z" 
-                fill="none" stroke="rgba(225,29,46,0.4)" stroke-width="1.5"/>
-          <ellipse cx="120" cy="330" rx="35" ry="35" fill="none" stroke="rgba(225,29,46,0.3)" stroke-width="1.5"/>
-          <ellipse cx="320" cy="330" rx="35" ry="35" fill="none" stroke="rgba(225,29,46,0.3)" stroke-width="1.5"/>
-          <!-- Grid -->
-          <line x1="0" y1="0" x2="0" y2="500" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-          <line x1="80" y1="0" x2="80" y2="500" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-          <line x1="160" y1="0" x2="160" y2="500" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-          <line x1="240" y1="0" x2="240" y2="500" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-          <line x1="320" y1="0" x2="320" y2="500" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-          <line x1="400" y1="0" x2="400" y2="500" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-          <!-- Red accent lines -->
-          <line x1="60" y1="400" x2="340" y2="400" stroke="rgba(225,29,46,0.6)" stroke-width="2"/>
-          <text x="200" y="150" text-anchor="middle" font-family="'Bebas Neue', sans-serif" 
-                font-size="80" fill="rgba(225,29,46,0.08)" letter-spacing="5">AUTO-BAN</text>
-          <text x="200" y="200" text-anchor="middle" font-family="'Outfit', sans-serif" 
-                font-size="13" fill="rgba(255,255,255,0.2)" letter-spacing="4">FRIBOURG · SUISSE</text>
+          <rect width="400" height="500" fill="#EBEBEB"/>
+          <path d="M60 320 Q80 260 160 240 L240 220 Q320 215 360 240 L380 280 Q390 310 380 330 L60 330 Z"
+                fill="none" stroke="rgba(225,29,46,0.5)" stroke-width="1.5"/>
+          <ellipse cx="120" cy="330" rx="35" ry="35" fill="none" stroke="rgba(225,29,46,0.4)" stroke-width="1.5"/>
+          <ellipse cx="320" cy="330" rx="35" ry="35" fill="none" stroke="rgba(225,29,46,0.4)" stroke-width="1.5"/>
+          <line x1="80"  y1="0" x2="80"  y2="500" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+          <line x1="160" y1="0" x2="160" y2="500" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+          <line x1="240" y1="0" x2="240" y2="500" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+          <line x1="320" y1="0" x2="320" y2="500" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+          <line x1="60"  y1="400" x2="340" y2="400" stroke="rgba(225,29,46,0.7)" stroke-width="2"/>
+          <text x="200" y="155" text-anchor="middle" font-family="'Bebas Neue', sans-serif"
+                font-size="80" fill="rgba(225,29,46,0.07)" letter-spacing="5">AUTO-BAN</text>
+          <text x="200" y="205" text-anchor="middle" font-family="'Outfit', sans-serif"
+                font-size="13" fill="rgba(0,0,0,0.15)" letter-spacing="4">FRIBOURG · SUISSE</text>
         </svg>
       </div>
       <div class="about-accent"></div>
-      <div class="about-badge">
-        Fondé<br>en 2018
-      </div>
+      <div class="about-badge">Fondé<br>en 2018</div>
     </div>
 
     <div class="about-content reveal">
       <div class="section-tag">Notre histoire</div>
       <h2 class="section-title">PASSION &amp;<br>EXPERTISE</h2>
-
       <p class="lead">
-        Le Garage Auto-Ban, c'est l'histoire d'un homme qui a transformé sa passion 
+        Le Garage Auto-Ban, c'est l'histoire d'un homme qui a transformé sa passion
         pour la mécanique en une carrière d'excellence.
       </p>
       <p>
-        Ban TUY, patron du garage, a débuté par un CFC en mécanique automobile 
-        obtenu avec brio en 1994. Refusant de s'arrêter là, il a poursuivi sa formation 
+        Ban TUY, patron du garage, a débuté par un CFC en mécanique automobile
+        obtenu avec brio en 1994. Refusant de s'arrêter là, il a poursuivi sa formation
         jusqu'à décrocher un diplôme d'Ingénieur en mécanique à la HES en 2000.
       </p>
       <p>
-        Fondé en 2018 à Fribourg, le garage propose aujourd'hui une gamme complète 
-        de prestations automobiles. Confier votre véhicule au Garage Auto-Ban, c'est 
-        la garantie d'un travail soigné, effectué par un professionnel qui aime 
+        Fondé en 2018 à Fribourg, le garage propose aujourd'hui une gamme complète
+        de prestations automobiles. Confier votre véhicule au Garage Auto-Ban, c'est
+        la garantie d'un travail soigné, effectué par un professionnel qui aime
         véritablement son métier.
       </p>
-
       <div class="about-timeline">
         <div class="timeline-item">
           <div class="timeline-year">1994</div>
@@ -640,53 +651,49 @@
   </div>
 </section>
 
-<!-- WHY US -->
-<section class="why" id="why">
-  <div style="max-width: 1200px; margin: 0 auto;">
-    <div class="reveal" style="text-align: center; max-width: 600px; margin: 0 auto 1rem;">
-      <div class="section-tag" style="justify-content: center;">Pourquoi nous choisir</div>
-      <h2 class="section-title">VOS AVANTAGES</h2>
+<!-- ── WHY US ── -->
+<section class="section-light" id="why">
+  <div class="why-header-wrap reveal">
+    <div class="section-tag" style="justify-content: center;">Pourquoi nous choisir</div>
+    <h2 class="section-title">VOS AVANTAGES</h2>
+  </div>
+  <div class="why-grid reveal">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h3>Ingénieur diplômé HES</h3>
+      <p>Rare sur le marché — votre voiture est diagnostiquée et réparée par un ingénieur en mécanique, pas seulement un mécanicien.</p>
     </div>
-
-    <div class="why-grid reveal">
-      <div class="why-card">
-        <div class="why-num">01</div>
-        <h3>Ingénieur diplômé HES</h3>
-        <p>Rare sur le marché — votre voiture est diagnostiquée et réparée par un ingénieur en mécanique, pas seulement un mécanicien.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">02</div>
-        <h3>Toutes marques acceptées</h3>
-        <p>Aucune restriction de marque. Du véhicule de luxe à la citadine, chaque voiture reçoit la même attention.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">03</div>
-        <h3>Qualité & transparence</h3>
-        <p>Devis clair, travaux expliqués, aucune mauvaise surprise. La confiance est au cœur de chaque prestation.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">04</div>
-        <h3>Service complet en un lieu</h3>
-        <p>Réparations, pneus, batterie, climatisation, expertise, pare-brise — tout sous un même toit, sans multiplier les interlocuteurs.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">05</div>
-        <h3>Voiture de prêt gratuite</h3>
-        <p>Voiture de prêt mise à disposition gratuitement pendant la durée de votre réparation — vous restez mobile sans contrainte.</p>
-      </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h3>Toutes marques acceptées</h3>
+      <p>Aucune restriction de marque. Du véhicule de luxe à la citadine, chaque voiture reçoit la même attention.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h3>Qualité &amp; transparence</h3>
+      <p>Devis clair, travaux expliqués, aucune mauvaise surprise. La confiance est au cœur de chaque prestation.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <h3>Service complet en un lieu</h3>
+      <p>Réparations, pneus, batterie, climatisation, expertise, pare-brise — tout sous un même toit.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">05</div>
+      <h3>Voiture de prêt gratuite</h3>
+      <p>Voiture de prêt mise à disposition gratuitement pendant la durée de votre réparation — vous restez mobile.</p>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section style="background: var(--bg);" id="contact">
+<!-- ── CONTACT ── -->
+<section class="section-gray" id="contact">
   <div class="contact-inner">
     <div>
       <div class="reveal">
         <div class="section-tag">Nous trouver</div>
         <h2 class="section-title">CONTACT &amp;<br>HORAIRES</h2>
       </div>
-
       <div class="contact-info reveal">
         <div class="info-block">
           <div class="info-label">Adresse</div>
@@ -698,7 +705,7 @@
         </div>
         <div class="info-block">
           <div class="info-label">Horaires d'ouverture</div>
-          <div class="info-value" style="margin-top: 0.5rem;">
+          <div class="info-value" style="margin-top:0.5rem;">
             <div class="hours-grid">
               <div>
                 <div class="hour-row"><span class="hour-day">Lundi</span><span class="hour-time">08:00 – 18:00</span></div>
@@ -715,14 +722,12 @@
           </div>
         </div>
       </div>
-
-      <!-- Map placeholder -->
       <div class="map-placeholder reveal">
         <svg class="map-pin" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
         </svg>
         <span>Rue de la Carrière 42b, Fribourg</span>
-        <a href="https://maps.google.com/?q=Rue+de+la+Carriere+42b+Fribourg" 
+        <a href="https://maps.google.com/?q=Rue+de+la+Carriere+42b+Fribourg"
            style="font-size:0.78rem; color:var(--red); text-decoration:none; letter-spacing:0.1em; text-transform:uppercase;">
           Ouvrir dans Maps →
         </a>
@@ -734,7 +739,6 @@
         <div class="section-tag">Écrivez-nous</div>
         <h2 class="section-title">PRENDRE<br>RENDEZ-VOUS</h2>
       </div>
-
       <form class="contact-form reveal" onsubmit="return false;">
         <div class="form-row">
           <div class="form-group">
@@ -774,9 +778,11 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ── -->
 <footer>
-  <img src="assets/logo.svg" alt="Auto-Ban Logo" class="footer-logo">
+  <div class="footer-logo-wrap">
+    <img src="logo.png" alt="Garage Auto-Ban Logo" class="footer-logo">
+  </div>
   <div class="footer-copy">© 2025 Garage Auto-Ban TUY — Fribourg, Suisse</div>
   <nav class="footer-links">
     <a href="#services">Services</a>
@@ -786,21 +792,19 @@
 </footer>
 
 <script>
-// Nav active indicator
 const navLinks = document.querySelectorAll('.nav-links a');
-const slider = document.querySelector('.nav-slider');
-const navList = document.querySelector('.nav-links');
+const slider   = document.querySelector('.nav-slider');
+const navList  = document.querySelector('.nav-links');
 const sections = ['home','services','about','contact'].map(id => document.getElementById(id));
 
 function moveSlider(el) {
   if (!slider || !el) return;
   const listRect = navList.getBoundingClientRect();
-  const rect = el.getBoundingClientRect();
-  slider.style.left = (rect.left - listRect.left) + 'px';
-  slider.style.width = rect.width + 'px';
+  const rect     = el.getBoundingClientRect();
+  slider.style.left    = (rect.left - listRect.left) + 'px';
+  slider.style.width   = rect.width + 'px';
   slider.style.opacity = '1';
 }
-
 function setActive(id) {
   navLinks.forEach(a => a.classList.remove('active'));
   const active = document.querySelector(`.nav-links a[href="#${id}"]`);
@@ -814,26 +818,26 @@ navLinks.forEach(a => {
     const active = document.querySelector('.nav-links a.active');
     if (active) moveSlider(active); else if (slider) slider.style.opacity = '0';
   });
+  a.addEventListener('click', () => setActive(a.getAttribute('href').slice(1)));
 });
 
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
-}, { rootMargin: '0px 0px -80% 0px' });
+const sectionObserver = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
+  { rootMargin: '0px 0px -80% 0px' }
+);
 sections.forEach(s => { if (s) sectionObserver.observe(s); });
-
-navLinks.forEach(a => a.addEventListener('click', () => setActive(a.getAttribute('href').slice(1))));
 
 window.addEventListener('resize', () => {
   const active = document.querySelector('.nav-links a.active');
   if (active) moveSlider(active);
 }, { passive: true });
 
-// Init slider on first link at load
 window.addEventListener('load', () => {
   const accueil = document.querySelector('.nav-links a[href="#home"]');
   if (accueil) { accueil.classList.add('active'); moveSlider(accueil); }
 });
 
+// Reveal on scroll
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
@@ -846,6 +850,7 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 reveals.forEach(el => io.observe(el));
 
+// Form feedback
 document.querySelector('.form-submit').addEventListener('click', function() {
   this.textContent = 'Message envoyé ✓';
   this.style.background = '#1a6e3c';
