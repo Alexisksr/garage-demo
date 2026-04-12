@@ -57,19 +57,22 @@
     display: inline-block;
     font-size: 0.72rem; font-weight: 600;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none;
-    transition: color 0.25s;
-    position: relative; padding-bottom: 6px;
+    color: var(--red); text-decoration: none;
+    transition: color 0.2s, background 0.2s, padding 0.2s;
+    position: relative;
+    padding: 0.35rem 0.75rem;
+    border-radius: 2px;
     white-space: nowrap;
   }
-  .nav-links a:hover { color: var(--black); }
-  .nav-links a.active { color: var(--black); }
-  .nav-slider {
-    position: absolute; bottom: -4px; left: 0;
-    height: 2px; background: var(--red);
-    transition: left 0.3s ease, width 0.3s ease, opacity 0.2s ease;
-    pointer-events: none; opacity: 0;
+  .nav-links a:hover {
+    color: #fff;
+    background: var(--red);
   }
+  .nav-links a.active {
+    color: #fff;
+    background: var(--red);
+  }
+  .nav-slider { display: none; }
   .nav-cta {
     background: var(--red); color: #fff;
     padding: 0.6rem 1.5rem; font-size: 0.72rem;
