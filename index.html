@@ -53,28 +53,33 @@
     margin: 0; padding: 0;
   }
   .nav-links li { display: list-item; }
-  .nav-links a {
+  nav ul.nav-links li a,
+  nav ul.nav-links li a:link,
+  nav ul.nav-links li a:visited {
     display: inline-block;
     font-size: 0.72rem; font-weight: 600;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: #000000;
-    text-decoration: none;
+    color: #000000 !important;
+    text-decoration: none !important;
     transition: color 0.2s;
     position: relative;
     padding: 0.3rem 0;
     white-space: nowrap;
   }
-  .nav-links a::after {
+  nav ul.nav-links li a::after {
     content: '';
     position: absolute; left: 0; bottom: -3px;
     width: 0; height: 2px;
     background: #E11D2E;
     transition: width 0.25s ease;
   }
-  .nav-links a:hover { color: #E11D2E; }
-  .nav-links a:hover::after { width: 100%; }
-  .nav-links a.active { color: #E11D2E; }
-  .nav-links a.active::after { width: 100%; }
+  nav ul.nav-links li a:hover,
+  nav ul.nav-links li a:focus {
+    color: #E11D2E !important;
+  }
+  nav ul.nav-links li a:hover::after { width: 100%; }
+  nav ul.nav-links li a.active { color: #E11D2E !important; }
+  nav ul.nav-links li a.active::after { width: 100%; }
   .nav-slider { display: none; }
   .nav-cta {
     background: var(--red); color: #fff;
@@ -452,10 +457,10 @@
 <nav>
   <img src="logo.png" alt="Garage Auto-Ban Logo" class="nav-logo">
   <ul class="nav-links">
-    <li><a href="#home">Accueil</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#about">À propos</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#home" style="color:#000000;text-decoration:none;">Accueil</a></li>
+    <li><a href="#services" style="color:#000000;text-decoration:none;">Services</a></li>
+    <li><a href="#about" style="color:#000000;text-decoration:none;">À propos</a></li>
+    <li><a href="#contact" style="color:#000000;text-decoration:none;">Contact</a></li>
     <span class="nav-slider"></span>
   </ul>
   <a href="#rdv" class="nav-cta">Prendre RDV</a>
