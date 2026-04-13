@@ -55,23 +55,26 @@
   .nav-links li { display: list-item; }
   .nav-links a {
     display: inline-block;
-    font-size: 0.72rem; font-weight: 600;
+    font-size: 0.72rem; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--red); text-decoration: none;
-    transition: color 0.2s, background 0.2s, padding 0.2s;
+    color: #E11D2E;
+    text-decoration: none;
+    transition: color 0.2s;
     position: relative;
-    padding: 0.35rem 0.75rem;
-    border-radius: 2px;
+    padding: 0.3rem 0;
     white-space: nowrap;
   }
-  .nav-links a:hover {
-    color: #fff;
-    background: var(--red);
+  .nav-links a::after {
+    content: '';
+    position: absolute; left: 0; bottom: -3px;
+    width: 0; height: 2px;
+    background: #B81A1A;
+    transition: width 0.25s ease;
   }
-  .nav-links a.active {
-    color: #fff;
-    background: var(--red);
-  }
+  .nav-links a:hover { color: #B81A1A; }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: #B81A1A; }
+  .nav-links a.active::after { width: 100%; }
   .nav-slider { display: none; }
   .nav-cta {
     background: var(--red); color: #fff;
